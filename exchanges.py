@@ -1,6 +1,9 @@
 import json
 import time
+import datetime
+import logging
 import forex
+import models
 from google.appengine.api import urlfetch
 
 
@@ -92,7 +95,7 @@ class Btcchina(object):
 
     @property
     def timestamp(self):
-        timestamp = int(time.time())
+        timestamp = int(time.mktime(datetime.datetime.utcnow().timetuple()))
         return timestamp
 
 
@@ -127,33 +130,47 @@ class Btce(object):
 class Metaex(object):
 
     def __init__(self):
-        self.mtgox = Mtgox()
-        self.bitstamp = Bitstamp()
-        self.btcchina = Btcchina()
-        self.btce = Btce()
+        self._last_saved = models.PricingHistory.query().order(-models.PricingHistory.recorded_at).get()
 
-    @property
+    def fetch(self):
+        if not self._last_saved or self.age() > 60:
+            mtgox = Mtgox()
+            bitstamp = Bitstamp()
+            btcchina = Btcchina()
+            btce = Btce()
+
+            ts_recorded_at = max(mtgox.timestamp,
+                                 bitstamp.timestamp,
+                                 btcchina.timestamp,
+                                 btce.timestamp)
+            recorded_at = datetime.datetime.fromtimestamp(ts_recorded_at)
+
+            volume = (mtgox.volume +
+                      bitstamp.volume +
+                      btcchina.volume +
+                      btce.volume)
+
+            usd_price = ((mtgox.usd_price * mtgox.volume
+                          + bitstamp.usd_price * bitstamp.volume
+                          + btcchina.usd_price * btcchina.volume
+                          + btce.usd_price * btce.volume)
+                         / volume)
+
+            new_hist = models.PricingHistory(recorded_at=recorded_at,
+                                             volume=volume,
+                                             usd_price=usd_price)
+            new_hist.put()
+
     def usd_price(self):
-        return ((self.mtgox.usd_price * self.mtgox.volume
-                 + self.bitstamp.usd_price * self.bitstamp.volume
-                 + self.btcchina.usd_price * self.btcchina.volume
-                 + self.btce.usd_price * self.btce.volume)
-                / self.volume)
+        return self._last_saved.usd_price
 
-    @property
     def volume(self):
-        return (self.mtgox.volume +
-                self.bitstamp.volume +
-                self.btcchina.volume +
-                self.btce.volume)
+        return self._last_saved.volume
 
-    @property
-    def timestamp(self):
-        return max(self.mtgox.timestamp,
-                   self.bitstamp.timestamp,
-                   self.btcchina.timestamp,
-                   self.btce.timestamp)
+    def recorded_at(self):
+        return self._last_saved.recorded_at
 
-    @property
     def age(self):
-        return int(time.time() - self.timestamp)
+        timedelta = datetime.datetime.utcnow() - self.recorded_at()
+
+        return timedelta.seconds

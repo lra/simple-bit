@@ -1,6 +1,7 @@
 import os
 import jinja2
 import webapp2
+import logging
 import exchanges
 
 
@@ -25,3 +26,9 @@ class IndexPage(BaseHandler):
         metaex = exchanges.Metaex()
         variables = {'metaex': metaex}
         self.render_template('index.html', variables)
+
+class FetchPage(BaseHandler):
+
+    def get(self):
+        metaex = exchanges.Metaex()
+        metaex.fetch()

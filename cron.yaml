@@ -1,0 +1,4 @@
+cron:
+- description: fetch new data from exchanges
+  url: /fetch
+  schedule: every 1 minutes
