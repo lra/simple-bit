@@ -22,14 +22,6 @@ class BaseHandler(webapp2.RequestHandler):
 class IndexPage(BaseHandler):
 
     def get(self):
-        mtgox = exchanges.Mtgox()
-        bitstamp = exchanges.Bitstamp()
-        btcchina = exchanges.Btcchina()
-        btce = exchanges.Btce()
-        variables = {
-            'mtgox': mtgox,
-            'bitstamp': bitstamp,
-            'btcchina': btcchina,
-            'btce': btce,
-        }
+        metaex = exchanges.Metaex()
+        variables = {'metaex': metaex}
         self.render_template('index.html', variables)

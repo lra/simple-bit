@@ -122,3 +122,34 @@ class Btce(object):
     def timestamp(self):
         timestamp = int(self.ticker_data['ticker']['updated'])
         return timestamp
+
+
+class Metaex(object):
+
+    def __init__(self):
+        self.mtgox = Mtgox()
+        self.bitstamp = Bitstamp()
+        self.btcchina = Btcchina()
+        self.btce = Btce()
+
+    @property
+    def usd_price(self):
+        return ((self.mtgox.usd_price * self.mtgox.volume
+                 + self.bitstamp.usd_price * self.bitstamp.volume
+                 + self.btcchina.usd_price * self.btcchina.volume
+                 + self.btce.usd_price * self.btce.volume)
+                / self.volume)
+
+    @property
+    def volume(self):
+        return (self.mtgox.volume +
+                self.bitstamp.volume +
+                self.btcchina.volume +
+                self.btce.volume)
+
+    @property
+    def timestamp(self):
+        return max(self.mtgox.timestamp,
+                   self.bitstamp.timestamp,
+                   self.btcchina.timestamp,
+                   self.btce.timestamp)
