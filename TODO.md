@@ -1,0 +1,2 @@
+- Cache the exchange calls
+- Cron the exchange calls
