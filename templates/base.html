@@ -8,12 +8,28 @@
     <link href="static/css/sticky-footer.css" rel="stylesheet">
   </head>
   <body>
-    <h1>Global Exchange</h1>
-    <div>
-    {% block content %}
-    {% endblock content %}
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+
+      <!-- Begin page content -->
+      <div class="container">
+        <div class="page-header">
+          <h1>Simple Bit</h1>
+        </div>
+        <p class="lead">Worldwide real-time Bitcoin (BTC) market value.</p>
+        <p>
+          {% block content %}
+          {% endblock content %}
+        </p>
+      </div>
     </div>
-    <p>Donate: 12FUqBJNHaNgtsvubofTKFEm2MBZAYQg3t</p>
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted">Donate: 12FUqBJNHaNgtsvubofTKFEm2MBZAYQg3t</p>
+      </div>
+    </div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="static/js/jquery-2.0.3.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

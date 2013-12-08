@@ -153,3 +153,7 @@ class Metaex(object):
                    self.bitstamp.timestamp,
                    self.btcchina.timestamp,
                    self.btce.timestamp)
+
+    @property
+    def age(self):
+        return int(time.time() - self.timestamp)

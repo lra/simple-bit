@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
 <ul>
-    <li>USD Price: {{ metaex.usd_price }}</li>
-    <li>Volume: {{ metaex.volume }}</li>
-    <li>Timestamp: {{ metaex.timestamp }}</li>
+    <li>Price per BTC (USD): {{ metaex.usd_price }}</li>
+    <li>Volume (24h): {{ metaex.volume }}</li>
+    <li>Last update: {{ metaex.age }}s ago</li>
 </ul>
 {% endblock content %}
