@@ -1,8 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
+
+<h4>Right now</h4>
+
 <ul>
     <li>Price per BTC (USD): {{ metaex.usd_price }}</li>
     <li>Volume (24h): {{ metaex.volume }}</li>
     <li>Last update: {{ metaex.age }}s ago</li>
 </ul>
+
+<h4>Where to get Bitcoins</h4>
+
+<ul>
+    <li>In the US: <a href="https://coinbase.com/?r=52043addcd11dcdc5800001f&utm_campaign=user-referral&src=referral-link">Coinbase</a></li>
+    <li>In Europe: <a href="https://www.bitstamp.net/">Bitstamp</a></li>
+    <li>In China: <a href="https://vip.btcchina.com/">BTC China</a></li>
+    <li>Elsewhere: <a href="https://www.mtgox.com/">MtGox</a>
+</ul>
+
 {% endblock content %}
