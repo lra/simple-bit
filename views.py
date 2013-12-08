@@ -25,9 +25,11 @@ class IndexPage(BaseHandler):
         mtgox = exchanges.Mtgox()
         bitstamp = exchanges.Bitstamp()
         btcchina = exchanges.Btcchina()
+        btce = exchanges.Btce()
         variables = {
             'mtgox': mtgox,
             'bitstamp': bitstamp,
-            'btcchina': btcchina
+            'btcchina': btcchina,
+            'btce': btce,
         }
         self.render_template('index.html', variables)

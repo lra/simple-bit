@@ -94,3 +94,31 @@ class Btcchina(object):
     def timestamp(self):
         timestamp = int(time.time())
         return timestamp
+
+
+class Btce(object):
+
+    def __init__(self):
+        self.ticker_url = 'https://btc-e.com/api/2/btc_usd/ticker'
+        self._fetch_ticker_data()
+
+    def _fetch_ticker_data(self):
+        result = urlfetch.fetch(self.ticker_url)
+        if result.status_code == 200:
+            str_data = result.content
+            self.ticker_data = json.loads(str_data)
+
+    @property
+    def usd_price(self):
+        price = float(self.ticker_data['ticker']['last'])
+        return price
+
+    @property
+    def volume(self):
+        volume = float(self.ticker_data['ticker']['vol_cur'])
+        return volume
+
+    @property
+    def timestamp(self):
+        timestamp = int(self.ticker_data['ticker']['updated'])
+        return timestamp
