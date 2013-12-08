@@ -23,4 +23,11 @@ class IndexPage(BaseHandler):
 
     def get(self):
         mtgox = exchanges.Mtgox()
-        self.render_template('index.html', {'mtgox': mtgox})
+        bitstamp = exchanges.Bitstamp()
+        btcchina = exchanges.Btcchina()
+        variables = {
+            'mtgox': mtgox,
+            'bitstamp': bitstamp,
+            'btcchina': btcchina
+        }
+        self.render_template('index.html', variables)

@@ -1,9 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
 <p>Hello Bitcoin People !</p>
+<p>MtGox</p>
 <ul>
     <li>USD Price: {{ mtgox.usd_price }}</li>
     <li>Volume: {{ mtgox.volume }}</li>
     <li>Timestamp: {{ mtgox.timestamp }}</li>
+</ul>
+<p>Bitstamp</p>
+<ul>
+    <li>USD Price: {{ bitstamp.usd_price }}</li>
+    <li>Volume: {{ bitstamp.volume }}</li>
+    <li>Timestamp: {{ bitstamp.timestamp }}</li>
+</ul>
+<p>BTC China</p>
+<ul>
+    <li>CNY Price: {{ btcchina.usd_price }}</li>
+    <li>Volume: {{ btcchina.volume }}</li>
+    <li>Timestamp: {{ btcchina.timestamp }}</li>
 </ul>
 {% endblock content %}
