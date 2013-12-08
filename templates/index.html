@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<p>Hello Bitcoin People !</p>
+<ul>
+    <li>USD Price: {{ mtgox.usd_price }}</li>
+    <li>Volume: {{ mtgox.volume }}</li>
+    <li>Timestamp: {{ mtgox.timestamp }}</li>
+</ul>
+{% endblock content %}
